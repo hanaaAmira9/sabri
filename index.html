@@ -273,48 +273,10 @@
             position: fixed;
             inset: 0;
             z-index: 999;
-            background: url('bg.png') center/cover no-repeat;
+            background: #000;
             display: none;
             align-items: center;
             justify-content: center;
-        }
-
-        #videoLoading {
-            position: absolute;
-            inset: 0;
-            z-index: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 14px;
-            color: #fff;
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.2rem;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
-            background: rgba(0, 0, 0, 0.12);
-        }
-
-        #videoLoading::before {
-            content: '';
-            width: 34px;
-            height: 34px;
-            border: 2px solid rgba(255, 255, 255, 0.45);
-            border-top-color: #fff;
-            border-radius: 50%;
-            animation: videoLoadingSpin 0.9s linear infinite;
-        }
-
-        #videoOverlay.video-ready #videoLoading {
-            display: none;
-        }
-
-        @keyframes videoLoadingSpin {
-            to {
-                transform: rotate(360deg);
-            }
         }
 
         #coverVideo {
@@ -322,12 +284,6 @@
             height: 100%;
             object-fit: cover;
             display: block;
-            opacity: 0;
-            transition: opacity 0.25s ease;
-        }
-
-        #videoOverlay.video-ready #coverVideo {
-            opacity: 1;
         }
 
         /* ---------- STYLES EXISTANTS (INVITATION) ---------- */
@@ -1145,8 +1101,7 @@
 
     <!-- OVERLAY VIDÉO PLEIN ÉCRAN -->
     <div id="videoOverlay">
-        <div id="videoLoading" aria-live="polite">Chargement...</div>
-        <video id="coverVideo" src="video.MP4" muted playsinline preload="auto" poster="bg.png"></video>
+        <video id="coverVideo" src="video.MP4" muted playsinline preload="auto"></video>
     </div>
 
     <!-- CONTENU DE L'INVITATION (caché au départ) -->
@@ -1156,6 +1111,7 @@
             <section class="heroo" id="heroo" data-i18n-bg="bg_hero">
 
 </section>
+
         <section class="countdown-section" id="countdownSection">
             <h2 class="countdown-title reveal-title" style="margin-top: 30px;" data-i18n="familles">Familles Benali &amp; Belguit</h2>
 
@@ -1504,13 +1460,6 @@ Votre présence sera pour nous le plus beau des cadeaux   </p>
 
             let musicPlaying = false;
             let videoEnded = false;
-
-            function showVideo() {
-                videoOverlay.classList.add('video-ready');
-            }
-
-            coverVideo.addEventListener('loadeddata', showVideo);
-            coverVideo.addEventListener('canplay', showVideo);
 
 
             /* ==========================================
@@ -2019,7 +1968,6 @@ tl_cortege_detail: 'انطلاق الموكب من الصديقية، إيذان
                 }, 800);
 
                 videoOverlay.style.display = 'flex';
-                videoOverlay.classList.remove('video-ready');
 
                 coverVideo.currentTime = 0;
 
